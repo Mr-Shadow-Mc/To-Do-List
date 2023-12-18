@@ -30,7 +30,7 @@
     $sql = "INSERT INTO users (UserName, UserMail, UserPassword)
 VALUES ('$username', '$email', '$password')";
 
-    if ($conn->query($sql) === TRUE & !isEmailExists($conn, 'user', $email)) {
+    if ($conn->query($sql) === TRUE && isEmailExists($conn, 'user', $email) == false) {
         header('Location: ./../pages/welcom.php?user=' . $username);
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
