@@ -25,41 +25,43 @@
 
     mysqli_close($conn);
 
+    function isEmailExists($conn, $tableName, $email)
+    {
+        // SQL Statement
+        $sql = "SELECT * FROM " . $tableName . " WHERE email='" . $email . "'";
+
+        // Process the query
+        $results = $conn->query($sql);
+
+        // Fetch Associative array
+        $row = $results->fetch_assoc();
+
+        // Check if there is a result and response to  1 if email is existing
+        return (is_array($row) && count($row) > 0);
+    }
+
+    function Verfiy($conn, $tableName, $email)
+    {
+        $isEmailExist = isEmailExists($conn, 'user', $email);
+        if ($isEmailExist == false) {
+            header('Location: ./assets/db_utility/InserUser.php');
+        }
+        else {
+            echo "Error: email exist.";
+        }
+    }
+
     ?>
 
-    <div class="contenair" style="width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    background-color: black;
-    top: 0;
-    left: 0;">
-        <div class="contenair-wrapper" style="    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    height: 500px;
-    width: 400px;
-    border-radius: 15px;
-    justify-content: space-evenly;">
+    <div class="contenair">
+        <div class="contenair-wrapper">
             <h1 style="font-size: 3.4em;">Welcom</h1>
-            <form name="form" action="./assets/db_utility/InsertUser.php" method="post" class="inputs" style="    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;">
-                <input type="text" name="username" id="name" required style="    margin: 10px 0;">
-                <input type="email" name="email" id="email" required style="    margin: 10px 0;">
-                <input type="password" name="password" id="password" required style="    margin: 10px 0;">
-                <input type="submit" style="margin-top: 22px;
-        width: 40%;
-        background-color: white;
-        border-radius: 15px;
-        height: 7%;">
+            <form name="form" action="<?php isEmailExists($conn, 'user', $_POST['email']) ?>" method="post" class="form_inputs">
+                <input type="text" name="username" id="name" required>
+                <input type="email" name="email" id="email" required>
+                <input type="password" name="password" id="password" required>
+                <input type="submit">
             </form>
-
         </div>
     </div>
 
