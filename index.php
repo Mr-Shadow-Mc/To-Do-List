@@ -44,23 +44,8 @@
 
     ?>
 
-    <div class="contenair" style="width: 100vw;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    background-color: black;
-    top: 0;
-    left: 0;">
-        <div class="contenair-wrapper" style="    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    height: 500px;
-    width: 400px;
-    border-radius: 15px;
-    justify-content: space-evenly;">
+    <div class="contenair">
+        <div class="contenair-wrapper">
             <h1 style="font-size: 3.4em;">Welcom</h1>
             <form name="form" action="<?php isEmailExists($conn, 'users', $_POST['email']) ?>" method="post" class="inputs" style="    display: flex;
     flex-wrap: nowrap;
@@ -76,7 +61,6 @@
         border-radius: 15px;
         height: 7%;">
             </form>
-
         </div>
     </div>
 
