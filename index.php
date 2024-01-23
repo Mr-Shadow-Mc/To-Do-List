@@ -25,6 +25,23 @@
 
     mysqli_close($conn);
 
+    function isEmailExists($conn, $tableName, $email)
+    {
+        // SQL Statement
+        $sql = "SELECT * FROM " . $tableName . " WHERE email='" . $email . "'";
+
+        // Process the query
+        $results = $conn->query($sql);
+
+        // Fetch Associative array
+        $row = $results->fetch_assoc();
+
+        // Check if there is a result and response to  1 if email is existing
+        return (is_array($row) && count($row) > 0);
+
+        header('Location: ./../db_utility/InsertUser.php');
+    }
+
     ?>
 
     <div class="contenair" style="width: 100vw;
@@ -45,7 +62,7 @@
     border-radius: 15px;
     justify-content: space-evenly;">
             <h1 style="font-size: 3.4em;">Welcom</h1>
-            <form name="form" action="./assets/db_utility/InsertUser.php" method="post" class="inputs" style="    display: flex;
+            <form name="form" action="<?php isEmailExists($conn, 'users', $_POST['email']) ?>" method="post" class="inputs" style="    display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     justify-content: center;

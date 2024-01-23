@@ -30,7 +30,7 @@
     $sql = "INSERT INTO users (UserName, UserMail, UserPassword)
 VALUES ('$username', '$email', '$password')";
 
-    if ($conn->query($sql) === TRUE & !isEmailExists($conn, 'user', $email)) {
+    if ($conn->query($sql) === TRUE) {
         header('Location: ./../pages/welcom.php?user=' . $username);
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
@@ -38,20 +38,7 @@ VALUES ('$username', '$email', '$password')";
 
     $conn->close();
 
-    function isEmailExists($conn, $tableName, $email)
-    {
-        // SQL Statement
-        $sql = "SELECT * FROM " . $tableName . " WHERE email='" . $email . "'";
-
-        // Process the query
-        $results = $conn->query($sql);
-
-        // Fetch Associative array
-        $row = $results->fetch_assoc();
-
-        // Check if there is a result and response to  1 if email is existing
-        return (is_array($row) && count($row) > 0);
-    }
+    
     ?>
 
     <script src="" async defer></script>
